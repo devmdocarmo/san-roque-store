@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/green_900"
+    tools:context=".view.FormRegisterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/button_close"
+            android:layout_width="40dp"
+            android:layout_height="37dp"
+            android:src="@drawable/ic_baseline_close_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_new_username"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:backgroundTint="@color/white"
+            android:hint="Usuario"
+            android:maxLines="1"
+            android:inputType="textAutoComplete"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_semitransparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_tip_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Consejo: no utilizar caracteres especiales para recordar facilmente(@#$%/.*)"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/edit_new_username"
+            app:layout_constraintStart_toStartOf="@id/edit_new_username"
+            app:layout_constraintTop_toBottomOf="@id/edit_new_username" />
+
+        <EditText
+            android:id="@+id/edit_new_password"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/white"
+            android:hint="Contraseña"
+            android:maxLength="6"
+            android:inputType="numberPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_semitransparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_tip_username"/>
+
+        <TextView
+            android:id="@+id/text_tip_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Requisito: longitud minima de 4 hasta 6"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/edit_new_password"
+            app:layout_constraintStart_toStartOf="@id/edit_new_password"
+            app:layout_constraintTop_toBottomOf="@id/edit_new_password" />
+
+        <Button
+            android:id="@+id/button_save_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Guardar"
+            android:enabled="false"
+            android:textColor="@color/green_900"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_tip_password" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

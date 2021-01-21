@@ -2,6 +2,7 @@ package com.application.sanroquestock.model
 
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.application.sanroquestock.BuildConfig
 import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.SecretKeyFactory
@@ -10,7 +11,16 @@ import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
 abstract class BaseActivity : AppCompatActivity() {
-    protected fun encryptBytes(plainTextBytes: ByteArray, passwordString: String): HashMap<String, ByteArray>{
+
+    protected fun fullEncrypt(string: String): HashMap<String, ByteArray>{
+        val bytes = string.toByteArray()
+        return encryptBytes(bytes, BuildConfig.SECRET_STRING)
+    }
+    protected fun fullDecrypt(encrypted: HashMap<String, ByteArray>): String?{
+        val decrypted = decryptData(encrypted, BuildConfig.SECRET_STRING)
+        return decrypted?.let { String(it) }
+    }
+    private fun encryptBytes(plainTextBytes: ByteArray, passwordString: String): HashMap<String, ByteArray>{
         val map = HashMap<String, ByteArray>()
         try {
             //Random salt for next step
@@ -44,7 +54,7 @@ abstract class BaseActivity : AppCompatActivity() {
         return map
     }
 
-    protected fun decryptData(map: HashMap<String, ByteArray>, passwordString: String): ByteArray? {
+    private fun decryptData(map: HashMap<String, ByteArray>, passwordString: String): ByteArray? {
         var decrypted: ByteArray? = null
         try {
             val salt = map["salt"]

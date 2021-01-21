@@ -1,33 +1,68 @@
 package com.application.sanroquestock.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.widget.EditText
-import android.widget.Switch
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.application.sanroquestock.R
+import com.application.sanroquestock.repositories.UsersDatabase
 import com.application.sanroquestock.model.BaseActivity
+import com.application.sanroquestock.model.EntityUser
+import kotlinx.android.synthetic.main.activity_login.*
+
 
 class LoginActivity : BaseActivity() {
-
-    lateinit var username : EditText
-    lateinit var password : EditText
-    lateinit var switchps : Switch
-
+    var userdb : UsersDatabase?=null
+    var username : String?= null
+    var pass : String?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        username = findViewById(R.id.edit_usuername)
-        password = findViewById(R.id.edit_password)
-        switchps = findViewById(R.id.switch_show_pass)
+        userdb = UsersDatabase.getAppDataBase(applicationContext)
+        /**********************************/
+        val string = "My sensitive string that I want to encrypt"
+        val encrypted = fullEncrypt(string)
 
-        switchps.setOnClickListener {
-            if(switchps.isChecked)
-                password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+//        val decrypted = fullDecrypt(encrypted)
+
+        /**********************************/
+
+        edit_usuername.requestFocus()
+        edit_usuername.setSelection(edit_usuername.length())
+        
+        switch_show_pass.setOnClickListener {
+            if (switch_show_pass.isChecked)
+                edit_password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             else
-                password.inputType = InputType.TYPE_CLASS_TEXT or
+                edit_password.inputType = InputType.TYPE_CLASS_TEXT or
                         InputType.TYPE_TEXT_VARIATION_PASSWORD
-            password.setSelection(password.length())
+            edit_password.setSelection(edit_password.length())
         }
+
+        button_login.setOnClickListener {
+            userdb?.userDao()?.findByName(edit_usuername.text.toString())?.observe(this,
+                    Observer<EntityUser>{ t->
+                username = t.username
+                pass = t.passEncript
+                        if (pass == edit_password.text.toString())
+                            Toast.makeText(this,"contrasenha correcta!", Toast.LENGTH_SHORT).show()
+            })
+        }
+
+        button_register.setOnClickListener {
+            val intent = Intent(this, FormRegisterActivity::class.java)
+            startActivity(intent)
+            onPause()
+        }
+
+            //edit_usuername.setText(userdb?.userDao()?.getAll()?.get(0)?.username.toString())
+            userdb?.userDao()?.getAll()?.observe(this,
+                    Observer<List<EntityUser>> { t ->
+                        edit_usuername.setText(t?.get(0)?.username)
+                        edit_usuername.requestFocus()
+                        edit_usuername.setSelection(edit_usuername.length())})
 
     }
 }
+

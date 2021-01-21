@@ -9,12 +9,13 @@ android {
 
     defaultConfig {
         applicationId "com.application.sanroquestock"
-        minSdkVersion 16
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "SECRET_STRING", '"asdkfjh234sdfgoweiasldkgh3lsdfgjh0sdfug45hsdfkgj45"'
     }
 
     buildTypes {
@@ -34,6 +35,7 @@ android {
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: "kotlin-kapt"
+apply plugin: 'kotlin-android-extensions'
 
 dependencies {
 
@@ -44,6 +46,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -65,4 +69,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt "androidx.room:room-compiler:$room_version"
+
+    //barcode scaner
+    implementation 'com.journeyapps:zxing-android-embedded:4.0.2'
+
 }
