@@ -2,6 +2,7 @@
     <string name="app_name">San Roque Stock</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">FormRegisterActivity</string>
+    <string name="title_activity_barcode">BarcodeScanActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>

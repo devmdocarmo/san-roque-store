@@ -15,7 +15,7 @@ interface UserDao {
     fun loadAllByIds(userIds: IntArray): List<EntityUser>
 
     @Query("SELECT * FROM usersLoged WHERE username LIKE :user LIMIT 1")
-    fun findByName(user: String): LiveData<EntityUser>
+    fun findByName(user: String): LiveData<EntityUser?>
 
     @Insert
     fun insertAll(users: List<EntityUser>)

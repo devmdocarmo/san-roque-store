@@ -42,11 +42,13 @@ class LoginActivity : BaseActivity() {
 
         button_login.setOnClickListener {
             userdb?.userDao()?.findByName(edit_usuername.text.toString())?.observe(this,
-                    Observer<EntityUser>{ t->
-                username = t.username
-                pass = t.passEncript
+                    Observer<EntityUser?>{ t->
+                username = t?.username
+                pass = t?.passEncript
                         if (pass == edit_password.text.toString())
                             Toast.makeText(this,"contrasenha correcta!", Toast.LENGTH_SHORT).show()
+                val intent= Intent(this@LoginActivity, BarcodeScanActivity::class.java)
+                startActivity(intent)
             })
         }
 
