@@ -10,4 +10,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_semitransparent">#9CFFFFFF</color>
+    <color name="color_text_green_dark">#004D40</color>
 </resources>

@@ -27,7 +27,7 @@ class SplashActivity : BaseActivity() {
         Thread {
             //Do your database´s operations here
             user_bd = UsersDatabase.getAppDataBase(applicationContext)
-            user_bd?.userDao()?.insertUser(EntityUser(id = 0, username = "admin",passEncript = "admin"))
+            user_bd?.userDao()?.insertUser(EntityUser(id = 0, username = "admin",passEncript = "1234"))
         }.start()
         /*****************************************/
         Handler(Looper.getMainLooper()).postDelayed({

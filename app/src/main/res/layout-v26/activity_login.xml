@@ -68,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:checked="false"
                 android:gravity="end"
+                android:keyboardNavigationCluster="false"
                 android:theme="@style/SCBSwitch"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

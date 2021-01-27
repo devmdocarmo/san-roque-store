@@ -3,12 +3,14 @@ package com.application.sanroquestock.view
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.view.Gravity
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.application.sanroquestock.R
-import com.application.sanroquestock.repositories.UsersDatabase
 import com.application.sanroquestock.model.BaseActivity
 import com.application.sanroquestock.model.EntityUser
+import com.application.sanroquestock.repositories.UsersDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -28,6 +30,7 @@ class LoginActivity : BaseActivity() {
 
         /**********************************/
 
+
         edit_usuername.requestFocus()
         edit_usuername.setSelection(edit_usuername.length())
         
@@ -41,15 +44,18 @@ class LoginActivity : BaseActivity() {
         }
 
         button_login.setOnClickListener {
+            edit_password.onEditorAction(EditorInfo.IME_ACTION_DONE)
             userdb?.userDao()?.findByName(edit_usuername.text.toString())?.observe(this,
-                    Observer<EntityUser?>{ t->
-                username = t?.username
-                pass = t?.passEncript
-                        if (pass == edit_password.text.toString())
-                            Toast.makeText(this,"contrasenha correcta!", Toast.LENGTH_SHORT).show()
-                val intent= Intent(this@LoginActivity, BarcodeScanActivity::class.java)
-                startActivity(intent)
-            })
+                    Observer<EntityUser?> { t ->
+                        username = t?.username
+                        pass = t?.passEncript
+                        if (pass == edit_password.text.toString()) {
+                            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                            startActivity(intent)
+                        } else {
+
+                        }
+                    })
         }
 
         button_register.setOnClickListener {
@@ -63,7 +69,8 @@ class LoginActivity : BaseActivity() {
                     Observer<List<EntityUser>> { t ->
                         edit_usuername.setText(t?.get(0)?.username)
                         edit_usuername.requestFocus()
-                        edit_usuername.setSelection(edit_usuername.length())})
+                        edit_usuername.setSelection(edit_usuername.length())
+                    })
 
     }
 }
