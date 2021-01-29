@@ -1,8 +1,13 @@
 package com.application.sanroquestock.model
 
+import android.os.Bundle
 import android.util.Log
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.application.sanroquestock.BuildConfig
+import com.application.sanroquestock.R
 import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.SecretKeyFactory
@@ -10,7 +15,21 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
+
 abstract class BaseActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)//will hide the title
+        supportActionBar?.hide() //hide the title bar
+
+        val window: Window = this.window
+
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+// finally change the color
+        window.statusBarColor = ContextCompat.getColor(this, R.color.green_900)
+    }
 
     protected fun fullEncrypt(string: String): HashMap<String, ByteArray>{
         val bytes = string.toByteArray()

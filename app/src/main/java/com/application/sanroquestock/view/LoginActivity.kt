@@ -22,6 +22,7 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         userdb = UsersDatabase.getAppDataBase(applicationContext)
+        actionBar?.hide()
         /**********************************/
         val string = "My sensitive string that I want to encrypt"
         val encrypted = fullEncrypt(string)

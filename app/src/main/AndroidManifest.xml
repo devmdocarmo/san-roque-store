@@ -17,7 +17,7 @@
         <activity
             android:name=".view.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.SanRoqueStock.NoActionBar"></activity>
+            android:theme="@style/Theme.SanRoqueStock.NoActionBar" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
