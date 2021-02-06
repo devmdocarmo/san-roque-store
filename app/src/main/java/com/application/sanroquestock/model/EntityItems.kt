@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "storeItems")
 data class EntityItems(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "barcode") val barcode: String?,
-    @ColumnInfo(name = "description") val description: String?,
-    @ColumnInfo(name = "price") val price: Int?
+        @PrimaryKey(autoGenerate = true) var id: Int = 0,
+        @ColumnInfo(name = "barcode") var barcode: String?,
+        @ColumnInfo(name = "description") var description: String?,
+        @ColumnInfo(name = "price") var price: Int?,
+        @ColumnInfo(name = "cantidad") var cantidad: Int?
 )

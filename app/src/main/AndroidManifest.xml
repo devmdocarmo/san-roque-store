@@ -20,7 +20,7 @@
             android:theme="@style/Theme.SanRoqueStock.NoActionBar" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
         <activity android:name=".view.BarcodeScanActivity" />
         <activity

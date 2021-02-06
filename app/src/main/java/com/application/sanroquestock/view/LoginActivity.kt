@@ -18,6 +18,7 @@ class LoginActivity : BaseActivity() {
     var userdb : UsersDatabase?=null
     var username : String?= null
     var pass : String?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -54,7 +55,11 @@ class LoginActivity : BaseActivity() {
                             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                             startActivity(intent)
                         } else {
-
+                            val toast =Toast.makeText(this@LoginActivity, "Contraseña incorrecta!", Toast.LENGTH_LONG)
+                            toast.apply {
+                                setGravity(Gravity.TOP, 0,0)
+                                show()
+                            }
                         }
                     })
         }

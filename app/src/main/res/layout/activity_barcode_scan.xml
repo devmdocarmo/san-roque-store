@@ -1,13 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_900"
+    android:padding="10dp"
+    android:background="@color/green_background"
     tools:context=".view.BarcodeScanActivity"
     tools:deviceIds="wear">
 
+    <TextView
+        android:id="@+id/text_barcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:padding="4dp"
+        android:text="Código: "
+        android:textStyle="bold"
+        android:textSize="@dimen/text_information_size_20"
+        android:textColor="@color/color_text_green_dark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/text_show_barcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:padding="4dp"
+        android:text="123456789"
+        android:textSize="@dimen/text_information_size_20"
+        android:textColor="@color/color_text_green_dark"
+        app:layout_constraintStart_toEndOf="@id/text_barcode"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:padding="4dp"
+        android:text="Descripción: "
+        android:textStyle="bold"
+        android:textColor="@color/color_text_green_dark"
+        android:textSize="@dimen/text_information_size_20"
+        app:layout_constraintBottom_toBottomOf="@+id/text_show_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_show_description" />
+
+    <EditText
+        android:id="@+id/text_show_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:text="trash"
+        android:backgroundTint="@color/color_text_green_dark"
+        android:textColor="@color/color_text_green_dark"
+        android:textSize="@dimen/text_information_size_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/text_description"
+        app:layout_constraintTop_toBottomOf="@id/text_show_barcode" />
+
+    <TextView
+        android:id="@+id/text_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:padding="4dp"
+        android:text="Precio: "
+        android:textStyle="bold"
+        android:textColor="@color/color_text_green_dark"
+        android:textSize="@dimen/text_information_size_20"
+        app:layout_constraintBottom_toBottomOf="@+id/text_show_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_show_price" />
+
+    <EditText
+        android:id="@+id/text_show_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:text="1000"
+        android:backgroundTint="@color/color_text_green_dark"
+        android:textColor="@color/color_text_green_dark"
+        android:textSize="@dimen/text_information_size_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/text_description"
+        app:layout_constraintTop_toBottomOf="@id/text_show_description" />
+
+    <TextView
+        android:id="@+id/text_cant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:padding="4dp"
+        android:text="Cantidad: "
+        android:textStyle="bold"
+        android:textColor="@color/color_text_green_dark"
+        android:textSize="@dimen/text_information_size_20"
+        app:layout_constraintBottom_toBottomOf="@+id/text_show_cant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_show_cant" />
+
+    <EditText
+        android:id="@+id/text_show_cant"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:text="123456789"
+        android:backgroundTint="@color/color_text_green_dark"
+        android:textColor="@color/color_text_green_dark"
+        android:textSize="@dimen/text_information_size_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/text_description"
+        app:layout_constraintTop_toBottomOf="@id/text_show_price" />
+
+    <Button
+        android:id="@+id/button_save_new_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="guardar"
+        android:backgroundTint="@color/green_900"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_show_cant"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
