@@ -19,7 +19,7 @@ interface ItemsDao {
     fun insertAll(items: List<EntityItems>)
 
     @Insert
-    fun insertUser(item: EntityItems)
+    fun insertItem(item: EntityItems)
 
     @Delete
     fun delete(item: EntityItems)

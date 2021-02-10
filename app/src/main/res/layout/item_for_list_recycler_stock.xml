@@ -7,6 +7,7 @@
     android:layout_margin="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_container"
         android:layout_width="match_parent"
         android:background="@color/green_background"
         android:padding="10dp"
@@ -26,13 +27,14 @@
             android:id="@+id/cant_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
             android:padding="2dp"
             android:text="100"
-            android:textSize="25sp"
             android:textColor="@color/color_text_green_dark"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/image_arrow"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/barcode_item"
@@ -43,6 +45,15 @@
             android:textColor="@color/color_text_green_dark"
             app:layout_constraintTop_toBottomOf="@id/name_item"
             app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageView
+            android:id="@+id/image_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+            app:layout_constraintBottom_toBottomOf="@+id/cant_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cant_item" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

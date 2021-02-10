@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.application.sanroquestock.BuildConfig
 import com.application.sanroquestock.R
 import com.google.gson.reflect.TypeToken
+import com.google.zxing.integration.android.IntentIntegrator
 import java.lang.reflect.Type
 import java.security.SecureRandom
 import javax.crypto.Cipher
@@ -19,6 +20,7 @@ import javax.crypto.spec.SecretKeySpec
 
 
 abstract class BaseActivity : AppCompatActivity() {
+    private lateinit var integrator: IntentIntegrator
     internal val type: Type = object : TypeToken<MutableList<EntityItems?>>() {}.type
     internal val typeEntity: Type = object : TypeToken<EntityItems>() {}.type
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +36,16 @@ abstract class BaseActivity : AppCompatActivity() {
 // finally change the color
         window.statusBarColor = ContextCompat.getColor(this, R.color.green_900)
     }
-
+    protected fun useScaner(state: Boolean){
+        if (state){
+            integrator = IntentIntegrator(this)
+            integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES)
+            integrator.setPrompt("Scan a barcode")
+            integrator.setCameraId(0) // Use a specific camera of the device
+            integrator.setOrientationLocked(false)
+            integrator.initiateScan()
+        }
+    }
     protected fun fullEncrypt(string: String): HashMap<String, ByteArray>{
         val bytes = string.toByteArray()
         return encryptBytes(bytes, BuildConfig.SECRET_STRING)

@@ -9,18 +9,15 @@ import android.widget.Toast
 import com.application.sanroquestock.R
 import com.application.sanroquestock.model.BaseActivity
 import com.application.sanroquestock.model.EntityItems
-import com.application.sanroquestock.utils.Constanst
-import com.application.sanroquestock.utils.Constanst.RESULT_FAILED
+import com.application.sanroquestock.utils.Constant
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 import kotlinx.android.synthetic.main.activity_barcode_scan.*
-import java.lang.reflect.Type
 
 
 class BarcodeScanActivity : BaseActivity() {
-    private lateinit var integrator: IntentIntegrator
+
     private lateinit var savedList: MutableList<EntityItems?>
     private var newitemadded :EntityItems?=null
     private val gson = Gson()
@@ -29,15 +26,11 @@ class BarcodeScanActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_barcode_scan)
-        stringIntent = intent.getStringExtra(Constanst.LIST_ITEMS_TO_STRING)
-        savedList = gson.fromJson<MutableList<EntityItems?>>(stringIntent, type)
-
-        integrator = IntentIntegrator(this)
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES)
-        integrator.setPrompt("Scan a barcode")
-        integrator.setCameraId(0) // Use a specific camera of the device
-        integrator.setOrientationLocked(false)
-        integrator.initiateScan()
+        if (intent.getBooleanExtra(Constant.USE_TRUE, false)) {
+            stringIntent = intent.getStringExtra(Constant.LIST_ITEMS_TO_STRING)
+            savedList = gson.fromJson<MutableList<EntityItems?>>(stringIntent, type)
+        }
+        useScaner(intent.getBooleanExtra(Constant.USE_TRUE, false))
 
         button_save_new_item.setOnClickListener {
 
@@ -48,7 +41,7 @@ class BarcodeScanActivity : BaseActivity() {
             
             val intentResult = Intent()
             intentResult.data = Uri.parse(gson.toJson(newitemadded, typeEntity))
-            setResult(Constanst.RESULT_OK, intentResult)
+            setResult(Constant.RESULT_OK, intentResult)
             finish()
         }
 
@@ -67,7 +60,7 @@ class BarcodeScanActivity : BaseActivity() {
                     toast.setGravity(Gravity.TOP,0,0)
                     toast.show()
                     Log.d("ITEM_POSITION", item.barcode.toString()+" == "+ result.contents)
-                    setResult(RESULT_FAILED, null)
+                    setResult(Constant.RESULT_FAILED, null)
                     finish()
                 }
             }
