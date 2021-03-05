@@ -13,12 +13,13 @@ import kotlinx.android.synthetic.main.activity_form_register.*
 class FormRegisterActivity : BaseActivity() {
 
     var userdb : UsersDatabase?=null
+    var cadenaRecibida = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form_register)
         userdb = UsersDatabase.getAppDataBase(applicationContext)
-
+        cadenaRecibida = intent.getStringExtra("CADENA").toString()
         edit_new_username.addTextChangedListener (
             object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

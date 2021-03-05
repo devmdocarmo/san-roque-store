@@ -66,6 +66,7 @@ class LoginActivity : BaseActivity() {
 
         button_register.setOnClickListener {
             val intent = Intent(this, FormRegisterActivity::class.java)
+            intent.putExtra("CADENA", "cadena a pasar")
             startActivity(intent)
             onPause()
         }

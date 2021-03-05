@@ -28,23 +28,10 @@ import java.lang.reflect.Type
 class ItemsStoreFragment : Fragment() {
     var itemsDatabase: ItemsDatabase?= null
     lateinit var itemIncoming : EntityItems
+    private var listIncoming = mutableListOf<EntityItems>()
     private val type: Type = object : TypeToken<MutableList<EntityItems?>>() {}.type
     private val typeEntity: Type = object : TypeToken<EntityItems>() {}.type
-    private var itemList = mutableListOf<EntityItems?>(EntityItems(id = 0,
-            barcode = "1",
-            cantidad = 1,
-            description = 1.toString(),
-            price = 1),
-            EntityItems(id = 0,
-                    barcode = 2.toString(),
-                    cantidad = 2,
-                    description = 2.toString(),
-                    price = 2),
-            EntityItems(id = 0,
-                    barcode = 3.toString(),
-                    cantidad = 3,
-                    description = 3.toString(),
-                    price = 3))
+    private var itemList = mutableListOf<EntityItems?>()
     val gson = Gson()
     var listAdapter: ListItemsAdapter?= null
     val newItems = mutableListOf<EntityItems>()
@@ -68,9 +55,9 @@ class ItemsStoreFragment : Fragment() {
         itemsDatabase?.itemsDao()?.getAll()?.observe(viewLifecycleOwner,
         Observer {
             itemList.addAll(it)
+            listAdapter = ListItemsAdapter(itemList, activity?.applicationContext)
             charge_recycler(null)
         })
-        listAdapter = ListItemsAdapter(itemList, activity?.applicationContext)
         charge_recycler(null)
 
         button_add_new_item.setOnClickListener {
@@ -82,7 +69,7 @@ class ItemsStoreFragment : Fragment() {
 
         button_update_item_list.setOnClickListener {
             GlobalScope.launch{
-                itemsDatabase?.itemsDao()?.insertAll(newItems)
+                itemsDatabase?.itemsDao()?.insertAll(if(newItems.isEmpty())listIncoming else newItems )
             }
             val toastNotify = Toast.makeText(activity,  "Base de Datos Acualizada!", Toast.LENGTH_SHORT)
             toastNotify.setGravity(Gravity.TOP,0,0)
@@ -111,6 +98,13 @@ class ItemsStoreFragment : Fragment() {
             itemIncoming = gson.fromJson(data?.data.toString(), typeEntity)
             charge_recycler(gson.fromJson(data?.data.toString(), typeEntity))
             newItems.add(itemIncoming)
+        }else if (resultCode == Constant.RESULT_ALTERATED){
+            button_update_item_list.visibility = View.VISIBLE
+            listIncoming = gson.fromJson(data?.data.toString(), type)
+            Log.d("ITEM_ALTERATED","correct")
+            itemList.clear()
+            itemList.addAll(listIncoming)
+            list_items.adapter?.notifyDataSetChanged()
         }
     }
 }

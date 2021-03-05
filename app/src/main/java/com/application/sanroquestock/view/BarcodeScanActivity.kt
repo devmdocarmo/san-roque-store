@@ -1,5 +1,6 @@
 package com.application.sanroquestock.view
 
+import android.content.Entity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -23,6 +24,9 @@ class BarcodeScanActivity : BaseActivity() {
     private val gson = Gson()
     private var newItem: EntityItems?= null
     private var stringIntent: String?= null
+    private var isEditing = false
+    private var itemEdited = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_barcode_scan)
@@ -33,16 +37,27 @@ class BarcodeScanActivity : BaseActivity() {
         useScaner(intent.getBooleanExtra(Constant.USE_TRUE, false))
 
         button_save_new_item.setOnClickListener {
+            if(isEditing){
+                savedList[itemEdited] = EntityItems(barcode = text_show_barcode.text.toString(),
+                        description = text_show_description.text.toString(),
+                        price = text_show_price.text.toString().toInt(),
+                        cantidad = text_show_cant.text.toString().toInt())
 
-            newitemadded = EntityItems(barcode = text_show_barcode.text.toString(),
-                description = text_show_description.text.toString(),
-                price = text_show_price.text.toString().toInt(),
-                cantidad = text_show_cant.text.toString().toInt())
-            
-            val intentResult = Intent()
-            intentResult.data = Uri.parse(gson.toJson(newitemadded, typeEntity))
-            setResult(Constant.RESULT_OK, intentResult)
-            finish()
+                val intentResult = Intent()
+                intentResult.data = Uri.parse(gson.toJson(savedList, type))
+                setResult(Constant.RESULT_ALTERATED, intentResult)
+                finish()
+            }else {
+                newitemadded = EntityItems(barcode = text_show_barcode.text.toString(),
+                        description = text_show_description.text.toString(),
+                        price = text_show_price.text.toString().toInt(),
+                        cantidad = text_show_cant.text.toString().toInt())
+
+                val intentResult = Intent()
+                intentResult.data = Uri.parse(gson.toJson(newitemadded, typeEntity))
+                setResult(Constant.RESULT_OK, intentResult)
+                finish()
+            }
         }
 
     }
@@ -51,21 +66,35 @@ class BarcodeScanActivity : BaseActivity() {
         super.onBackPressed()
         finish()
     }
+
+    private fun editItemExisting(item : EntityItems){
+
+        text_show_barcode.text = item.barcode
+        text_show_description.setText(item.description)
+        text_show_price.setText(item.price.toString())
+        text_show_cant.setText(item.cantidad.toString())
+
+        button_save_new_item.text = "Actualizar"
+        isEditing = true
+
+    }
+
     private fun logicBarcodeScanned(result: IntentResult){
-        for(item in savedList) {
+        for((index, item) in savedList.withIndex()) {
             item?.barcode?.let {
-                Log.d("ITEM_POSITION", "|$item|")
                 if (it.contains(result.contents)) {
-                    val toast = Toast.makeText(this@BarcodeScanActivity, "ya existe este item!", Toast.LENGTH_LONG)
-                    toast.setGravity(Gravity.TOP,0,0)
-                    toast.show()
-                    Log.d("ITEM_POSITION", item.barcode.toString()+" == "+ result.contents)
-                    setResult(Constant.RESULT_FAILED, null)
-                    finish()
+//                    val toast = Toast.makeText(this@BarcodeScanActivity, "ya existe este item!", Toast.LENGTH_LONG)
+//                    toast.setGravity(Gravity.TOP,0,0)
+//                    toast.show()
+//                    setResult(Constant.RESULT_FAILED, null)
+//                    finish()
+                    itemEdited = index
+                    editItemExisting(item)
                 }
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
